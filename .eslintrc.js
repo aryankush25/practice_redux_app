@@ -5,6 +5,9 @@ module.exports = {
   ],
   "parser": "babel-eslint",
   "rules": {
+    "indent": ["error", 4],
+    "react/jsx-indent": ["error", 4],
+    "react/jsx-indent-props": ["error", 4],
     "quotes": [
       "error",
       "double"
