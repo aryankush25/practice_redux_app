@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { reducer as formReducer } from "redux-form";
 import { BrowserRouter } from "react-router-dom";
-import Routes from "./routes";
+import App from "./App";
 
 const reducers = { form: formReducer };
 const reducer = combineReducers(reducers);
@@ -14,7 +14,7 @@ const store = createStore(reducer, applyMiddleware(logger));
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
-            <Routes />
+            <App />
         </BrowserRouter>
     </Provider>,
     document.getElementById("root")
