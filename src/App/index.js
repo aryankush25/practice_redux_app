@@ -1,12 +1,10 @@
 /* eslint-disable no-alert */
-import React, { Fragment } from "react";
+import React from "react";
 import Routes from "../routes";
 
 const App = () => {
     return (
-        <Fragment>
-            <Routes />
-        </Fragment>
+        <Routes />
     );
 };
 
