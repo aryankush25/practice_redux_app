@@ -10,7 +10,7 @@ const LoginPage = () => {
     };
 
     const submit = inputs => {
-        if (["Aryan", "batman"].includes(inputs.username)) {
+        if (["Aryan", "batman", "thor"].includes(inputs.username)) {
             throw new SubmissionError({
                 username: "Username already taken"
             });
