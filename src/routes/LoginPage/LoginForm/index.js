@@ -1,7 +1,7 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
-import myInput from "../Field";
-import { requiredInput, matchInput } from "../../utils/Validation";
+import myInput from "../../../Components/Field";
+import { requiredInput } from "../../../utils/Validation";
 
 const LoginForm = props => {
     const { handleSubmit } = props;
@@ -22,15 +22,8 @@ const LoginForm = props => {
                 placeholder="Password"
                 validate={[requiredInput]}
             />
-            <Field
-                name="confirm-password"
-                component={myInput}
-                type="password"
-                placeholder="Confirm Password"
-                validate={[requiredInput, matchInput]}
-            />
             <button type="submit" label="submit">
-                Submit
+                Login
             </button>
         </form>
     );

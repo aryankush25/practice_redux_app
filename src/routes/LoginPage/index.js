@@ -1,14 +1,9 @@
 /* eslint-disable no-alert */
 import React, { Fragment } from "react";
 import { SubmissionError } from "redux-form";
-import LoginForm from "../../Components/LoginForm";
+import LoginForm from "./LoginForm";
 
 const LoginPage = () => {
-    const myInitialValues = {
-        username: "Aryan",
-        password: ""
-    };
-
     const submit = inputs => {
         if (["Aryan", "batman"].includes(inputs.username)) {
             throw new SubmissionError({
@@ -21,7 +16,8 @@ const LoginPage = () => {
 
     return (
         <Fragment>
-            <LoginForm onSubmit={submit} initialValues={myInitialValues} />
+            <h1>Login Page</h1>
+            <LoginForm onSubmit={submit} />
         </Fragment>
     );
 };

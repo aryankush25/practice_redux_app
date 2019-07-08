@@ -1,9 +1,9 @@
 /* eslint-disable no-alert */
 import React, { Fragment } from "react";
 import { SubmissionError } from "redux-form";
-import LoginForm from "../../Components/LoginForm";
+import RegisterForm from "./RegisterForm";
 
-const LoginPage = () => {
+const RegisterPage = () => {
     const myInitialValues = {
         username: "Aryan",
         password: ""
@@ -21,9 +21,10 @@ const LoginPage = () => {
 
     return (
         <Fragment>
-            <LoginForm onSubmit={submit} initialValues={myInitialValues} />
+            <h1>Register Page</h1>
+            <RegisterForm onSubmit={submit} initialValues={myInitialValues} />
         </Fragment>
     );
 };
 
-export default LoginPage;
+export default RegisterPage;
