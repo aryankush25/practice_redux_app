@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "firebase-tools": "^7.0.2",
     "react": "^16.8.6",
+    "react-dnd": "^9.3.4",
+    "react-dnd-html5-backend": "^9.3.4",
     "react-dom": "^16.8.6",
+    "react-photo-gallery": "^8.0.0",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
