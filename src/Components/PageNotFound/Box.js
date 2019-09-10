@@ -14,7 +14,8 @@ const style = {
 const Box = ({
     src,
     name,
-    id
+    id,
+    changedPhotoArrayOrder
 }) => {
     const [{ isDragging }, drag, preview] = useDrag({
         item: {
@@ -23,15 +24,15 @@ const Box = ({
             src,
             type: "box"
         },
-        end: (item, monitor) => {
-            const dropResult = monitor.getDropResult();
-            if (item && dropResult) {
-                console.log("item", item);
-            }
-        },
         collect: monitor => ({
             isDragging: monitor.isDragging()
         })
+    });
+    const [, drop] = useDrop({
+        accept: "box",
+        drop({ id: draggedId }) {
+            changedPhotoArrayOrder(draggedId, id);
+        }
     });
     useEffect(() => {
         preview(getEmptyImage(), { captureDraggingState: true });
@@ -39,7 +40,7 @@ const Box = ({
     const opacity = isDragging ? 0.4 : 1;
     return (
         <div
-            ref={drag}
+            ref={node => drop(drag(node))}
             style={{ ...style, opacity }}
         >
             <img src={src} alt={name} height="100px" width="100px" />

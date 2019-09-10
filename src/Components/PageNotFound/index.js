@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { DndProvider, useDrop } from "react-dnd";
+import React, { useState, useEffect } from "react";
+import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { photos } from "../../utils/constants";
 import Box from "./Box.js";
@@ -8,12 +8,33 @@ import "./style.css";
 
 const Container = () => {
     const [photosArray, setPhotosArray] = useState(photos);
-    const [, drop] = useDrop({ accept: "box" });
+    const changedPhotoArrayOrder = (sourceId, targetId) => {
+        let sourceIdx = 0;
+        let targetIdx = 0;
+        let sourceIdxObj = {};
+        const newPhotoArray = photosArray;
+
+        newPhotoArray.forEach((photo, idx) => {
+            if (photo.id === sourceId) {
+                sourceIdx = idx;
+                sourceIdxObj = photo;
+            }
+        });
+        newPhotoArray.splice(sourceIdx, 1);
+
+        newPhotoArray.forEach((photo, idx) => {
+            if (photo.id === targetId) {
+                targetIdx = idx;
+            }
+        });
+        newPhotoArray.splice(targetIdx + 1, 0, sourceIdxObj);
+        setPhotosArray([...newPhotoArray]);
+    };
     return (
         <div>
             <CustomDragLayer />
 
-            <div className="App" ref={drop}>
+            <div className="App">
                 {
                     photosArray.map((photo) => {
                         return <Box
@@ -21,6 +42,7 @@ const Container = () => {
                             src={photo.src}
                             name={photo.name}
                             id={photo.id}
+                            changedPhotoArrayOrder={changedPhotoArrayOrder}
                         />;
                     })
                 }
