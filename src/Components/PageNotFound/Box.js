@@ -1,5 +1,6 @@
-import React from "react";
-import { useDrag } from "react-dnd";
+import React, { useEffect } from "react";
+import { useDrag, useDrop } from "react-dnd";
+import { getEmptyImage } from "react-dnd-html5-backend";
 
 const style = {
     border: "1px dashed gray",
@@ -13,24 +14,34 @@ const style = {
 const Box = ({
     src,
     name,
-    id,
-    setCurrentId
+    id
 }) => {
-    const [{ isDragging }, drag] = useDrag({
-        item: { id, type: "box" },
+    const [{ isDragging }, drag, preview] = useDrag({
+        item: {
+            id,
+            name,
+            src,
+            type: "box"
+        },
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult();
             if (item && dropResult) {
-                setCurrentId(item.id);
+                console.log("item", item);
             }
         },
         collect: monitor => ({
             isDragging: monitor.isDragging()
         })
     });
+    useEffect(() => {
+        preview(getEmptyImage(), { captureDraggingState: true });
+    }, []);
     const opacity = isDragging ? 0.4 : 1;
     return (
-        <div ref={drag} style={{ ...style, opacity }}>
+        <div
+            ref={drag}
+            style={{ ...style, opacity }}
+        >
             <img src={src} alt={name} height="100px" width="100px" />
             <div style={{ textAlign: "center" }}>
                 {name}
