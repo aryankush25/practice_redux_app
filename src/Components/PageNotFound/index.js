@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { photos } from "../../utils/constants";
@@ -34,7 +34,13 @@ const Container = () => {
         <div>
             <CustomDragLayer />
 
-            <div className="App">
+            <div
+                className="App"
+                style={{
+                    marginTop: "200px",
+                    marginLeft: "200px"
+                }}
+            >
                 {
                     photosArray.map((photo) => {
                         return <Box

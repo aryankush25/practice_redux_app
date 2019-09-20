@@ -55,7 +55,7 @@ const CustomDragLayer = () => {
         <div style={layerStyles}>
             <div style={getItemStyles(initialOffset, currentOffset)}>
                 <div style={style}>
-                    <img src={item.src} alt={item.name} height="200px" width="200px" />
+                    <img src={item.src} alt={item.name} height="120px" width="120px" />
                     <div style={{ textAlign: "center" }}>
                         {item.name}
                     </div>
