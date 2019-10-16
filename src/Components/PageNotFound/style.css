@@ -15,3 +15,29 @@
 .photo-container-div:hover {
     height: 200px;
 }
+.drag-line-wrapper {
+    width: 6px;
+    height: 66px;
+    box-sizing: border-box;
+    float: left;
+}
+
+.drag-line {
+    width: 2px;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #007BA7;
+    margin: 0 2px;
+    visibility: collapse;
+}
+
+.drag-line-container {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    visibility: hidden;
+}
+
+.drag-line-wrapper:hover >.drag-line {
+    visibility: visible;
+}

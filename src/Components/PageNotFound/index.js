@@ -1,62 +1,66 @@
-import React, { PureComponent } from "react";
+import React, { useState } from "react";
 import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { photos } from "../../utils/constants";
-import Dustbin from "./Dustbin.js";
 import Box from "./Box.js";
+import CustomDragLayer from "./CustomDragLayer.js";
 import "./style.css";
 
-class Container extends PureComponent {
-    constructor() {
-        super();
-        this.state = {
-            currentId: null
-        };
-    }
+const Container = () => {
+    const [photosArray, setPhotosArray] = useState(photos);
+    const changedPhotoArrayOrder = (sourceId, targetId) => {
+        let sourceIdx = 0;
+        let targetIdx = 0;
+        let sourceIdxObj = {};
+        const newPhotoArray = photosArray;
 
-    setCurrentId = (id) => {
-        this.setState({
-            currentId: id
-        });
-    }
-
-    getImageById = (id) => {
-        let image = null;
-        photos.forEach((photo) => {
-            if (photo.id === id) {
-                image = photo;
+        newPhotoArray.forEach((photo, idx) => {
+            if (photo.id === sourceId) {
+                sourceIdx = idx;
+                sourceIdxObj = photo;
             }
         });
-        return image;
-    }
+        newPhotoArray.splice(sourceIdx, 1);
 
-    render() {
-        const { currentId } = this.state;
-        return (
-            <DndProvider backend={HTML5Backend}>
-                <div className="App">
-                    <div>
-                        <Dustbin
-                            image={this.getImageById(currentId)}
-                        />
-                    </div>
-                    <div>
-                        {
-                            photos.map((photo) => {
-                                return <Box
-                                    key={photo.id}
-                                    src={photo.src}
-                                    name={photo.name}
-                                    id={photo.id}
-                                    setCurrentId={this.setCurrentId}
-                                />;
-                            })
-                        }
-                    </div>
-                </div>
-            </DndProvider>
-        );
-    }
-}
+        newPhotoArray.forEach((photo, idx) => {
+            if (photo.id === targetId) {
+                targetIdx = idx;
+            }
+        });
+        newPhotoArray.splice(targetIdx + 1, 0, sourceIdxObj);
+        setPhotosArray([...newPhotoArray]);
+    };
+    return (
+        <div>
+            <CustomDragLayer />
 
-export default Container;
+            <div
+                className="App"
+                style={{
+                    marginTop: "200px",
+                    marginLeft: "200px"
+                }}
+            >
+                {
+                    photosArray.map((photo) => {
+                        return <Box
+                            key={photo.id}
+                            src={photo.src}
+                            name={photo.name}
+                            id={photo.id}
+                            changedPhotoArrayOrder={changedPhotoArrayOrder}
+                        />;
+                    })
+                }
+            </div>
+        </div>
+    );
+};
+
+const PageNotFound = () => (
+    <DndProvider backend={HTML5Backend}>
+        <Container />
+    </DndProvider>
+);
+
+export default PageNotFound;
